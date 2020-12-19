@@ -26,17 +26,17 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
     private menuComponent: MenuComponent,
     private menuComponentService: MenuComponentService
-    ) {
-      this.menuComponent.elements[0].style.visibility = "visible";
-      this.menuComponent.elements[1].style.visibility = "hidden";
-      this.menuComponent.elements[2].style.visibility = "hidden";
-     }
+  ) {
+    this.menuComponent.elements[0].style.visibility = "visible";
+    this.menuComponent.elements[1].style.visibility = "hidden";
+    this.menuComponent.elements[2].style.visibility = "hidden";
+  }
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
-  });
+    });
   }
 
   get f() { return this.loginForm.controls; }
@@ -46,26 +46,26 @@ export class LoginComponent implements OnInit {
     // console.log(this.loginForm);
     if (this.loginForm.invalid) {
       return;
-  }
-  // console.log(this.f.username.value);
-  this.loading = true;
-  this.authService.authenticateUser({'username' : this.f.username.value, 'password':this.f.password.value})
-            .pipe(first())
-            .subscribe(
-                data => {
-                  console.log(data);
-                  this.authService.setUserLoggedIn(true);
-                    this.router.navigate(['/dashboard']);
-                    this.token = data.token;
-                    this.id = data.id;
-                    this.refreshToken = data.refreshToken;
-                    console.log(this.token);
-                    this.authService.storeUserData(this.id, this.token, this.f.username.value, this.refreshToken);
-                },
-                error => {
-                  this.loading = false;
-                  return;
-                });
+    }
+    // console.log(this.f.username.value);
+    this.loading = true;
+    this.authService.authenticateUser({ 'username': this.f.username.value, 'password': this.f.password.value })
+      .pipe(first())
+      .subscribe(
+        data => {
+          console.log(data);
+          this.authService.setUserLoggedIn(true);
+          this.router.navigate(['/dashboard']);
+          this.token = data.token;
+          this.id = data.id;
+          this.refreshToken = data.refreshToken;
+          console.log(this.token);
+          this.authService.storeUserData(this.id, this.token, this.f.username.value, this.refreshToken);
+        },
+        error => {
+          this.loading = false;
+          return;
+        });
 
   }
 

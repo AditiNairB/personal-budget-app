@@ -79,18 +79,20 @@ app.post("/api/login", (req, res) => {
         { username: username, password: password },
         function (err, result) {
           console.log(result);
-          if (err) {
+          if (err || null == result) {
             res.status(400).json({
               success: false,
               token: null,
               err: "Invalid username or password",
             });
+            return;
           }
 
           const token = jwt.sign({ username }, secretkey, { expiresIn: 60 });
           const refreshToken = jwt.sign({ username }, refreshTokenKey);
 
           refreshTokens.push(refreshToken);
+
 
           res.json({
             success: true,
