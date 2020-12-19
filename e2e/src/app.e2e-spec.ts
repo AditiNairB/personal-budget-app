@@ -8,14 +8,14 @@ describe('workspace-project App', () => {
     page = new AppPage();
   });
 
-  it('should display alerts', () => {
-    page.navigateTo();
-    expect(page.getTitleText()).toEqual('Free');
+  it('should navigate to login', () => {
+    page.navigateToLogin();
+    expect(page.getLoginHeader()).toEqual('Login');
   });
 
-  it('should display alerts', () => {
+  it('should display quote', () => {
     page.navigateTo();
-    expect(page.getHeadingText()).toEqual('Stay on track');
+    expect(page.getHeadingText()).toEqual('Stop living paycheck to paycheck, get out of debt, and save more money?');
   });
 
   // it('should display welcome message', () => {
