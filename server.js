@@ -14,7 +14,7 @@ const refreshTokenKey = "yourrefreshtokensecrethere";
 const refreshTokens = [];
 
 const url =
-  "mongodb+srv://admin:admin>@clusternbad.fgrqm.mongodb.net/personalbudget?retryWrites=true&w=majority";
+  "mongodb+srv://admin:admin@clusternbad.fgrqm.mongodb.net/personalbudget?retryWrites=true&w=majority";
 
 const jwtMW = extjwt({
   secret: secretkey,
