@@ -14,13 +14,27 @@ import { Router } from "@angular/router";
 export class AuthService {
 
 
+  private userLoggedIn = new Subject<boolean>();
   authToken: any;
+  refreshTokenValue: any;
   user: any;
   tokenSubscription = new Subscription()
   timeout;
-  apiUrl = 'http://localhost:3000/';
+  apiUrl = 'http://64.225.52.181:3000/';
 
-  constructor(private router: Router, private http: HttpClient) { }
+  constructor(private router: Router, private http: HttpClient) {
+    this.userLoggedIn.next(false);
+   }
+
+
+
+  setUserLoggedIn(userLoggedIn: boolean) {
+    this.userLoggedIn.next(userLoggedIn);
+  }
+
+  getUserLoggedIn(): Observable<boolean> {
+    return this.userLoggedIn.asObservable();
+  }
 
   authenticateUser(user: Object): Observable<any> {
     return this.http.post(this.apiUrl+'api/login', user, {
@@ -38,7 +52,7 @@ export class AuthService {
     });
   }
 
-  storeUserData(id, token, user) {
+  storeUserData(id, token, user, refreshToken) {
     const jwtHelper = new JwtHelperService();
     this.timeout = jwtHelper.getTokenExpirationDate(token).valueOf() - new Date().valueOf();
     sessionStorage.setItem("id_token", token);
@@ -46,11 +60,29 @@ export class AuthService {
     sessionStorage.setItem("id", JSON.stringify(id));
     this.authToken = token;
     this.user = user;
+    this.refreshTokenValue = refreshToken;
     // this.emit({ username: this.user.username });
     this.expirationCounter(this.timeout);
   }
 
+  refreshTokenData(token){
+
+
+    sessionStorage.setItem("id_token", token);
+    this.authToken = token;
+    this.resetTimer(token);
+
+  }
+
+  resetTimer(token){
+
+    const jwtHelper = new JwtHelperService();
+    this.timeout = jwtHelper.getTokenExpirationDate(token).valueOf() - new Date().valueOf();
+    this.expirationCounter(this.timeout);
+  }
+
   expirationCounter(timeout) {
+
     this.tokenSubscription.unsubscribe();
     this.tokenSubscription = of(null).pipe(delay(timeout)).subscribe((expired) => {
       console.log('EXPIRED!!');
@@ -67,10 +99,19 @@ export class AuthService {
     sessionStorage.clear();
   }
 
+  refreshToken(): Observable<any> {
+    return this.http.post(this.apiUrl+'api/refreshToken', {username: this.user, token: this.refreshTokenValue}, {
+      headers: new HttpHeaders({
+        "Content-Type": "application/json",
+        'Authorization': 'Bearer '+this.authToken
+      })
+    });
+  }
   getBudgetIdFromDB(param:Object): Observable<any> {
     return this.http.post(this.apiUrl+'api/getBudgetId', param, {
       headers: new HttpHeaders({
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        'Authorization': 'Bearer '+this.authToken
       })
     });
   }
@@ -78,8 +119,9 @@ export class AuthService {
   addBudgetIdToDB(param:Object): Observable<any> {
     return this.http.post(this.apiUrl+'api/addBudgetId', param, {
       headers: new HttpHeaders({
-        "Content-Type": "application/json"
-      })
+        "Content-Type": "application/json",
+        'Authorization': 'Bearer '+this.authToken
+      }, )
     });
   }
 
@@ -87,7 +129,8 @@ export class AuthService {
 
     return this.http.get(this.apiUrl+`api/budgetID/${budgetId}`, {
       headers: new HttpHeaders({
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        'Authorization': 'Bearer '+this.authToken
       })
     });
   }
@@ -96,7 +139,8 @@ export class AuthService {
 
     return this.http.post(this.apiUrl+'api/addBudgets', param, {
       headers: new HttpHeaders({
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        'Authorization': 'Bearer '+this.authToken
       })
     });
   }
@@ -105,7 +149,8 @@ export class AuthService {
 
     return this.http.delete(this.apiUrl+`api/budgetID/${budgetId}`, {
       headers: new HttpHeaders({
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        'Authorization': 'Bearer '+this.authToken
       })
     });
   }

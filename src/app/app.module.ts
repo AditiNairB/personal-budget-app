@@ -16,10 +16,13 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { AddnewbudgetComponent } from './addnewbudget/addnewbudget.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PickerComponent } from './picker/picker.component';
-import { LineChartComponent } from './charts/line-chart/line-chart.component';
-import { ChartsModule } from 'ng2-charts';
+import { NgIdleKeepaliveModule } from '@ng-idle/keepalive';
+import { MomentModule } from 'angular2-moment';
+import { ModalModule } from 'ngx-bootstrap/modal';
 import { PieChartComponent } from './charts/pie-chart/pie-chart.component';
+import { LineChartComponent } from './charts/line-chart/line-chart.component';
 import { BarChartComponent } from './charts/bar-chart/bar-chart.component';
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -32,10 +35,9 @@ import { BarChartComponent } from './charts/bar-chart/bar-chart.component';
     DashboardComponent,
     AddnewbudgetComponent,
     PickerComponent,
-    LineChartComponent,
     PieChartComponent,
-    BarChartComponent,
-
+    LineChartComponent,
+    BarChartComponent
   ],
   imports: [
     BrowserModule,
@@ -43,6 +45,9 @@ import { BarChartComponent } from './charts/bar-chart/bar-chart.component';
     ReactiveFormsModule,
     HttpClientModule,
     NgbModule,
+    NgIdleKeepaliveModule.forRoot(),
+    MomentModule,
+    ModalModule.forRoot(),
     ChartsModule
 
   ],
