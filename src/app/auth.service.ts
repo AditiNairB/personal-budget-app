@@ -20,11 +20,11 @@ export class AuthService {
   user: any;
   tokenSubscription = new Subscription()
   timeout;
-  apiUrl = 'http://64.225.52.181:3000/';
+  apiUrl = 'http://104.131.56.22:3000/';
 
   constructor(private router: Router, private http: HttpClient) {
     this.userLoggedIn.next(false);
-   }
+  }
 
 
 
@@ -37,7 +37,7 @@ export class AuthService {
   }
 
   authenticateUser(user: Object): Observable<any> {
-    return this.http.post(this.apiUrl+'api/login', user, {
+    return this.http.post(this.apiUrl + 'api/login', user, {
       headers: new HttpHeaders({
         "Content-Type": "application/json"
       })
@@ -45,7 +45,7 @@ export class AuthService {
   }
 
   registerUser(user: Object): Observable<any> {
-    return this.http.post(this.apiUrl+'api/signup', user, {
+    return this.http.post(this.apiUrl + 'api/signup', user, {
       headers: new HttpHeaders({
         "Content-Type": "application/json"
       })
@@ -65,7 +65,7 @@ export class AuthService {
     this.expirationCounter(this.timeout);
   }
 
-  refreshTokenData(token){
+  refreshTokenData(token) {
 
 
     sessionStorage.setItem("id_token", token);
@@ -74,7 +74,7 @@ export class AuthService {
 
   }
 
-  resetTimer(token){
+  resetTimer(token) {
 
     const jwtHelper = new JwtHelperService();
     this.timeout = jwtHelper.getTokenExpirationDate(token).valueOf() - new Date().valueOf();
@@ -92,7 +92,7 @@ export class AuthService {
     });
   }
 
-    logout() {
+  logout() {
     this.tokenSubscription.unsubscribe();
     this.authToken = null;
     this.user = null;
@@ -100,57 +100,57 @@ export class AuthService {
   }
 
   refreshToken(): Observable<any> {
-    return this.http.post(this.apiUrl+'api/refreshToken', {username: this.user, token: this.refreshTokenValue}, {
+    return this.http.post(this.apiUrl + 'api/refreshToken', { username: this.user, token: this.refreshTokenValue }, {
       headers: new HttpHeaders({
         "Content-Type": "application/json",
-        'Authorization': 'Bearer '+this.authToken
+        'Authorization': 'Bearer ' + this.authToken
       })
     });
   }
-  getBudgetIdFromDB(param:Object): Observable<any> {
-    return this.http.post(this.apiUrl+'api/getBudgetId', param, {
+  getBudgetIdFromDB(param: Object): Observable<any> {
+    return this.http.post(this.apiUrl + 'api/getBudgetId', param, {
       headers: new HttpHeaders({
         "Content-Type": "application/json",
-        'Authorization': 'Bearer '+this.authToken
-      })
-    });
-  }
-
-  addBudgetIdToDB(param:Object): Observable<any> {
-    return this.http.post(this.apiUrl+'api/addBudgetId', param, {
-      headers: new HttpHeaders({
-        "Content-Type": "application/json",
-        'Authorization': 'Bearer '+this.authToken
-      }, )
-    });
-  }
-
-  getBudgetsFromDB(budgetId:string): Observable<any> {
-
-    return this.http.get(this.apiUrl+`api/budgetID/${budgetId}`, {
-      headers: new HttpHeaders({
-        "Content-Type": "application/json",
-        'Authorization': 'Bearer '+this.authToken
+        'Authorization': 'Bearer ' + this.authToken
       })
     });
   }
 
-  addBudgetsToDB(param:Object): Observable<any> {
-
-    return this.http.post(this.apiUrl+'api/addBudgets', param, {
+  addBudgetIdToDB(param: Object): Observable<any> {
+    return this.http.post(this.apiUrl + 'api/addBudgetId', param, {
       headers: new HttpHeaders({
         "Content-Type": "application/json",
-        'Authorization': 'Bearer '+this.authToken
+        'Authorization': 'Bearer ' + this.authToken
       })
     });
   }
 
-  deleteBudgetsFromDB(budgetId:string): Observable<any> {
+  getBudgetsFromDB(budgetId: string): Observable<any> {
 
-    return this.http.delete(this.apiUrl+`api/budgetID/${budgetId}`, {
+    return this.http.get(this.apiUrl + `api/budgetID/${budgetId}`, {
       headers: new HttpHeaders({
         "Content-Type": "application/json",
-        'Authorization': 'Bearer '+this.authToken
+        'Authorization': 'Bearer ' + this.authToken
+      })
+    });
+  }
+
+  addBudgetsToDB(param: Object): Observable<any> {
+
+    return this.http.post(this.apiUrl + 'api/addBudgets', param, {
+      headers: new HttpHeaders({
+        "Content-Type": "application/json",
+        'Authorization': 'Bearer ' + this.authToken
+      })
+    });
+  }
+
+  deleteBudgetsFromDB(budgetId: string): Observable<any> {
+
+    return this.http.delete(this.apiUrl + `api/budgetID/${budgetId}`, {
+      headers: new HttpHeaders({
+        "Content-Type": "application/json",
+        'Authorization': 'Bearer ' + this.authToken
       })
     });
   }
