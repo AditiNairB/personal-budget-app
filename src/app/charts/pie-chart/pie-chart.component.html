@@ -1,10 +1,10 @@
 <div class="inline-block chartjs-container">
-  Expense
-  <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType"
+  <h4>Budget Pie Chart</h4>
+  <canvas baseChart [data]="pieChartDataBudget" [labels]="pieChartLabels" [chartType]="pieChartType"
     [options]="pieChartOptions" [plugins]="pieChartPlugins" [colors]="pieChartColors" [legend]="pieChartLegend">
   </canvas>
-  Budget
-  <canvas baseChart [data]="pieChartDataBudget" [labels]="pieChartLabels" [chartType]="pieChartType"
+  <h4>Expense Pie Chart</h4>
+  <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType"
     [options]="pieChartOptions" [plugins]="pieChartPlugins" [colors]="pieChartColors" [legend]="pieChartLegend">
   </canvas>
 </div>

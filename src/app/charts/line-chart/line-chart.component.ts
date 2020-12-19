@@ -18,25 +18,25 @@ export class LineChartComponent {
   expenseValue = new Array()
   label = new Array()
 
-  ngOnInit(){
+  ngOnInit() {
     this.resetFormSubject.subscribe(response => {
-      if(response )
+      if (response)
         this.budgetValues = new Array();
-        this.expenseValue = new Array();
-        this.label = new Array();
-        this.fetchChartData();
-        this.refreshData();
+      this.expenseValue = new Array();
+      this.label = new Array();
+      this.fetchChartData();
+      this.refreshData();
     })
   }
 
-  constructor(public chartDataService: ChartDataService){
-      console.log(this.chartDataService.elements)
-      this.fetchChartData();
+  constructor(public chartDataService: ChartDataService) {
+    console.log(this.chartDataService.elements)
+    this.fetchChartData();
 
 
   }
 
-  fetchChartData(){
+  fetchChartData() {
 
     this.chartDataService.elements.forEach(element => {
       this.budgetValues.push(element.budgetValue)
@@ -64,12 +64,12 @@ export class LineChartComponent {
   // Define colors of chart segments
   lineChartColors: Color[] = [
 
-    { // dark grey
-      backgroundColor: 'rgba(77,83,96,0.2)',
+    {
+      backgroundColor: 'rgba(77, 193, 228, 0.66)',
       borderColor: 'rgba(77,83,96,1)',
     },
     { // red
-      backgroundColor: 'rgba(255,0,0,0.3)',
+      backgroundColor: 'rgba(247, 43, 97, 0.66)',
       borderColor: 'red',
     }
   ];

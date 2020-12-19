@@ -16,23 +16,24 @@
       <option value="2011">2011</option>
     </select>
   </div>
-  <div >
-  <select id="month" class="browser-default custom-select">
-    <option value="January">January</option>
-    <option value="Febuary">Febuary</option>
-    <option value="March">March</option>
-    <option value="April">April</option>
-    <option value="May">May</option>
-    <option value="June">June</option>
-    <option value="July">July</option>
-    <option value="August">August</option>
-    <option value="September">September</option>
-    <option value="October">October</option>
-    <option value="November">November</option>
-    <option selected value="December">December</option>
-  </select>
+  <div>
+    <select id="month" class="browser-default custom-select">
+      <option value="January">January</option>
+      <option value="Febuary">Febuary</option>
+      <option value="March">March</option>
+      <option value="April">April</option>
+      <option value="May">May</option>
+      <option value="June">June</option>
+      <option value="July">July</option>
+      <option value="August">August</option>
+      <option value="September">September</option>
+      <option value="October">October</option>
+      <option value="November">November</option>
+      <option selected value="December">December</option>
+    </select>
   </div>
-  <button aria-label = "Get Budgets Button" class="d-inline" (click)="getBudgetsForUser()">GO</button>
+  <button aria-label="Get Budgets Button" class="d-inline" class="btn btn-primary btn-sm"
+    style="background-color: rgb(199, 77, 46);" (click)="getBudgetsForUser()">View Monthly Budget and Expenses</button>
 </div>
 <div>
   <form [formGroup]="budgetForm" (ngSubmit)="onSubmit()">
@@ -41,7 +42,7 @@
 
       <div *ngFor="let budget of budgets().controls; let budgetIndex=index">
 
-        <div  class="form-inline w-75" [formGroupName]="budgetIndex" style="padding: 10px; margin: 5px;">
+        <div class="form-inline w-75" [formGroupName]="budgetIndex" style="padding: 10px; margin: 5px;">
           Expense Name :
           <input type="text" formControlName="expenseName">
           Budget :
@@ -49,7 +50,8 @@
           Expense:
           <input type="number" formControlName="expenseValue">
 
-          <button (click)="removeBudget(budgetIndex)">Remove</button>
+          <button (click)="removeBudget(budgetIndex)" class="btn btn-primary btn-sm"
+            style="background-color: rgb(199, 77, 46);">Remove this row</button>
 
         </div>
 
@@ -57,13 +59,12 @@
     </div>
 
     <p>
-      <button type="button" (click)="addBudget()">Add New Expense</button>
+      <button class="btn btn-primary btn-sm" style="background-color: rgb(199, 77, 46);" (click)="addBudget()">Add New
+        Budget and Expense</button>
     </p>
     <p>
-      <button type="submit">Save</button>
+      <button class="btn btn-primary btn-sm" style="background-color: rgb(199, 77, 46);" type="submit">Save</button>
     </p>
 
   </form>
 </div>
-
-

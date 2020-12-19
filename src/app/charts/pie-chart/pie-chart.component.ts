@@ -17,23 +17,23 @@ export class PieChartComponent {
   expenseValue = new Array()
   label = new Array()
 
-  ngOnInit(){
+  ngOnInit() {
     this.resetFormSubject.subscribe(response => {
-      if(response)
+      if (response)
         this.budgetValues = new Array();
-        this.expenseValue = new Array();
-        this.label = new Array();
-        this.fetchChartData();
-        this.refreshData();
+      this.expenseValue = new Array();
+      this.label = new Array();
+      this.fetchChartData();
+      this.refreshData();
     })
   }
 
-  constructor(public chartDataService: ChartDataService){
-      console.log(this.chartDataService.elements)
-      this.fetchChartData();
+  constructor(public chartDataService: ChartDataService) {
+    console.log(this.chartDataService.elements)
+    this.fetchChartData();
   }
 
-  fetchChartData(){
+  fetchChartData() {
 
     this.chartDataService.elements.forEach(element => {
       this.budgetValues.push(element.budgetValue)
@@ -74,7 +74,7 @@ export class PieChartComponent {
 
   pieChartColors = [
     {
-      backgroundColor: ['rgba(255,0,0,0.3)', 'rgba(0,255,0,0.3)', 'rgba(0,0,255,0.3)'],
+      backgroundColor: ['rgb(242, 150, 150)', 'rgb(178, 147, 116)', 'rgb(213, 107, 1))', 'rgb(54, 1, 1)', 'rgb(207, 32, 32)'],
     },
   ];
 

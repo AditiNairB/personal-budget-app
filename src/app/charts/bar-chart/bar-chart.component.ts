@@ -17,25 +17,25 @@ export class BarChartComponent {
   expenseValue = new Array()
   label = new Array()
 
-  ngOnInit(){
+  ngOnInit() {
     this.resetFormSubject.subscribe(response => {
-      if(response )
+      if (response)
         this.budgetValues = new Array();
-        this.expenseValue = new Array();
-        this.label = new Array();
-        this.fetchChartData();
-        this.refreshData();
+      this.expenseValue = new Array();
+      this.label = new Array();
+      this.fetchChartData();
+      this.refreshData();
     })
   }
 
-  constructor(public chartDataService: ChartDataService){
-      console.log(this.chartDataService.elements)
-      this.fetchChartData();
+  constructor(public chartDataService: ChartDataService) {
+    console.log(this.chartDataService.elements)
+    this.fetchChartData();
 
 
   }
 
-  fetchChartData(){
+  fetchChartData() {
 
     this.chartDataService.elements.forEach(element => {
       this.budgetValues.push(element.budgetValue)
@@ -56,8 +56,8 @@ export class BarChartComponent {
   barChartPlugins = [];
 
   barChartData: ChartDataSets[] = [
-    { data: this.budgetValues, label: 'Budget' },
-    { data: this.expenseValue, label: 'Expense' }
+    { data: this.budgetValues, label: 'Budget', backgroundColor: 'red' },
+    { data: this.expenseValue, label: 'Expense', backgroundColor: 'orange' }
   ];
 
   refreshData() {

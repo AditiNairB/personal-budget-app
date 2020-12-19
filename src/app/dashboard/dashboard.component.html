@@ -1,10 +1,14 @@
 <div style="text-align:center">
-  <h1>
-    Welcome {{title}}!!
-  </h1>
+  <h3>Welcome to your dashboard!</h3>
 </div>
-<button (click)="addNewBudget()" class="btn btn-primary">
-  Add New Budget
+<div> We have multiple features ready for you.. all just one click away.
+  If you want to add a new budget or expense OR update an existing one, <button id='add-budget'
+    (click)="addNewBudget()">click
+    here!</button>
+</div>
+<button class="right" (click)="addNewBudget()" class="btn btn-primary btn-sm"
+  style="background-color: rgb(199, 77, 46);">
+  Budget and Expenses
 </button>
 <div class="w-25 p-3 ">
   <div class="d-inline">
@@ -40,18 +44,16 @@
       <option selected value="December">December</option>
     </select>
   </div>
-  <button aria-label = "Show Charts" class="d-inline" (click)="getDataForCharts()">GO</button>
+  <button class="btn btn-primary btn-sm" style="background-color: rgb(199, 77, 46);" aria-label="Show Charts"
+    (click)=" getDataForCharts()">View
+    Charts</button>
 </div>
 <div class="col-6">
-  <h4>Bar Chart</h4>
+  <app-pie-chart *ngIf="loadIndex == 2" [resetFormSubject]="resetFormSubject.asObservable()"></app-pie-chart>
+</div>
+<div class="col-6">
   <app-bar-chart *ngIf="loadIndex == 2" [resetFormSubject]="resetFormSubject.asObservable()"></app-bar-chart>
 </div>
 <div class="col-6">
-  <h4>Line Chart</h4>
   <app-line-chart *ngIf="loadIndex == 2" [resetFormSubject]="resetFormSubject.asObservable()"></app-line-chart>
 </div>
-<div class="col-6">
-  <h4>Pie Chart</h4>
-  <app-pie-chart *ngIf="loadIndex == 2" [resetFormSubject]="resetFormSubject.asObservable()"></app-pie-chart>
-</div>
-
