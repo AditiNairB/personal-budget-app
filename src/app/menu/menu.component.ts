@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuComponentService } from '../menu-component.service';
+import { MenuComponentService } from '../services/menu-component-service/menu-component.service';
 
 @Component({
   selector: 'app-menu',
@@ -11,8 +11,8 @@ export class MenuComponent implements OnInit {
   public elements: any[];
 
   constructor(public menuComponentService: MenuComponentService) {
-    this.elements =[document.getElementById('login'),document.getElementById('logout'),document.getElementById('dashboard')]
-    this.menuComponentService.data = this.elements ;
+    this.elements = [document.getElementById('login'), document.getElementById('logout'), document.getElementById('dashboard')]
+    this.menuComponentService.data = this.elements;
     console.log(menuComponentService.data)
   }
 

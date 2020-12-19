@@ -2,11 +2,11 @@ import { Component, ViewChild } from '@angular/core';
 import { DEFAULT_INTERRUPTSOURCES, Idle } from '@ng-idle/core';
 import { Keepalive } from '@ng-idle/keepalive';
 import { BsModalRef, BsModalService, ModalDirective } from 'ngx-bootstrap/modal';
-import { MenuComponentService } from './menu-component.service';
 import { MenuComponent } from './menu/menu.component';
 import { Router } from '@angular/router';
-import { AuthService } from './auth.service';
 import { first } from 'rxjs/operators';
+import { AuthService } from './services/auth-service/auth.service';
+import { MenuComponentService } from './services/menu-component-service/menu-component.service';
 
 @Component({
   selector: 'app-root',
@@ -50,10 +50,10 @@ export class AppComponent {
     });
 
     idle.onIdleStart.subscribe(() => {
-        this.idleState = 'You\'ve gone idle!'
-        console.log(this.idleState);
-        this.setIdleRefreshToken();
-        this.childModal.show();
+      this.idleState = 'You\'ve gone idle!'
+      console.log(this.idleState);
+      this.setIdleRefreshToken();
+      this.childModal.show();
     });
 
     idle.onTimeoutWarning.subscribe((countdown) => {
@@ -82,21 +82,21 @@ export class AppComponent {
     // this.reset();
   }
 
-  setIdleRefreshToken(){
+  setIdleRefreshToken() {
     console.log("Inside setIdleRefreshToken")
     this.authService.refreshToken()
-            .pipe(first())
-            .subscribe(
-                data => {
-                  console.log(data);
-                  this.authService.setUserLoggedIn(true);
-                    // this.router.navigate(['/dashboard']);
-                    let token = data.token;
-                    this.authService.refreshTokenData(token);
-                },
-                error => {
-                  return;
-                });
+      .pipe(first())
+      .subscribe(
+        data => {
+          console.log(data);
+          this.authService.setUserLoggedIn(true);
+          // this.router.navigate(['/dashboard']);
+          let token = data.token;
+          this.authService.refreshTokenData(token);
+        },
+        error => {
+          return;
+        });
   }
 
   reset() {

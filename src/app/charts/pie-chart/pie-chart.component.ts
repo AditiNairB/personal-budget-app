@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { ChartOptions, ChartType } from 'chart.js';
 import { Label } from 'ng2-charts';
 import { Subject } from 'rxjs';
-import { ChartDataService } from 'src/app/chart-data.service';
+import { ChartDataService } from '../../services/chart-data-service/chart-data.service';
 
 @Component({
   selector: 'app-pie-chart',
@@ -54,7 +54,7 @@ export class PieChartComponent {
       mode: 'single',
       callbacks: {
         label: function (tooltipItems, data) {
-          return data.datasets[0].data[tooltipItems.index] + ' %';
+          return '$' + data.datasets[0].data[tooltipItems.index];
         }
       }
     },

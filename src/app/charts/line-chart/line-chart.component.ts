@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { ChartDataSets, ChartOptions } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
-import { ChartDataService } from '../../chart-data.service';
+import { ChartDataService } from '../../services/chart-data-service/chart-data.service';
 import { Subject } from 'rxjs';
 
 

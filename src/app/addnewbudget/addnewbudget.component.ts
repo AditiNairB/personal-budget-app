@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import { AuthService } from '../auth.service';
 import { first } from 'rxjs/operators';
+import { AuthService } from '../services/auth-service/auth.service';
 
 @Component({
   selector: 'app-addnewbudget',

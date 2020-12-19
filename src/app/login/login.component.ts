@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
-import { AuthService } from '../auth.service';
 import { MenuComponent } from '../menu/menu.component';
-import { MenuComponentService } from '../menu-component.service';
+import { AuthService } from '../services/auth-service/auth.service';
+import { MenuComponentService } from '../services/menu-component-service/menu-component.service';
 
 @Component({
   selector: 'app-login',

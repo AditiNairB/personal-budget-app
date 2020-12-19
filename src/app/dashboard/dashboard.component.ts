@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuComponent } from '../menu/menu.component';
-import { MenuComponentService } from '../menu-component.service';
-import { AuthService } from '../auth.service';
 import { first } from 'rxjs/operators';
-import { ChartDataService } from '../chart-data.service';
 import { Subject } from 'rxjs';
+import { MenuComponentService } from '../services/menu-component-service/menu-component.service';
+import { AuthService } from '../services/auth-service/auth.service';
+import { ChartDataService } from '../services/chart-data-service/chart-data.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -19,7 +19,7 @@ export class DashboardComponent implements OnInit {
   yearElement: any;
   public elements: any[];
   loadIndex: any;
-  resetFormSubject: Subject<boolean> =new Subject<boolean>();
+  resetFormSubject: Subject<boolean> = new Subject<boolean>();
 
   constructor(private router: Router, public menuComponentService: MenuComponentService, public menuComponent: MenuComponent, public authService: AuthService, public chartDataService: ChartDataService) {
     this.menuComponent.elements[0].style.visibility = "hidden";
@@ -32,7 +32,7 @@ export class DashboardComponent implements OnInit {
     this.getDataForCharts()
   }
 
-  addNewBudget(){
+  addNewBudget() {
     this.router.navigate(['/addNewBudget']);
 
   }
