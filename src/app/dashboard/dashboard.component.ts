@@ -44,6 +44,7 @@ export class DashboardComponent implements OnInit {
     let year = this.yearElement.value;
     let userId = sessionStorage.getItem('id').replace('"', '').replace('"', '');
 
+    console.log(month + " " + year + " " + userId)
     this.authService
       .getBudgetIdFromDB({ userId: userId, month: month, year: year })
       .pipe(first())

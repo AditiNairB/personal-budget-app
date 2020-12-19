@@ -33,10 +33,15 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.clearSession();
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
     });
+  }
+
+  clearSession() {
+    sessionStorage.clear();
   }
 
   get f() { return this.loginForm.controls; }

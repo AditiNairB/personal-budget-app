@@ -45,7 +45,11 @@ app.post("/api/signup", (req, res) => {
             });
           }
 
-          const token = jwt.sign({ username }, secretkey, { expiresIn: 60 });
+          // Token expiration is set as 24h.
+          // Token is deleted after 60s of
+          // idle time. After 40s a prompt occurs
+          // to refresh token if necessary.
+          const token = jwt.sign({ username }, secretkey, { expiresIn: '24h' });
           const refreshToken = jwt.sign({ username }, refreshTokenKey);
 
           refreshTokens.push(refreshToken);
@@ -88,7 +92,11 @@ app.post("/api/login", (req, res) => {
             return;
           }
 
-          const token = jwt.sign({ username }, secretkey, { expiresIn: 60 });
+          // Token expiration is set as 24h.
+          // Token is deleted after 60s of
+          // idle time. After 40s a prompt occurs
+          // to refresh token if necessary.
+          const token = jwt.sign({ username }, secretkey, { expiresIn: '24h' });
           const refreshToken = jwt.sign({ username }, refreshTokenKey);
 
           refreshTokens.push(refreshToken);
@@ -97,7 +105,7 @@ app.post("/api/login", (req, res) => {
           res.json({
             success: true,
             err: null,
-            id: result,
+            id: result._id,
             username,
             token,
             refreshToken,
@@ -133,7 +141,11 @@ app.post("/api/refreshToken", (req, res) => {
       return res.sendStatus(403);
     }
 
-    const token = jwt.sign({ username }, secretkey, { expiresIn: 60 });
+    // Token expiration is set as 24h.
+    // Token is deleted after 60s of
+    // idle time. After 40s a prompt occurs
+    // to refresh token if necessary.
+    const token = jwt.sign({ username }, secretkey, { expiresIn: '24h' });
 
     res.json({
       token,
@@ -150,9 +162,6 @@ app.post("/logout", (req, res) => {
 
 app.post("/api/addBudgetId", jwtMW, (req, res) => {
   const { userId, month, year } = req.body;
-  console.log("Inside add budget ID");
-
-  console.log({ userId: userId, month: month, year: year });
   mongoClient.connect(url, (err, client) => {
     if (err) throw err;
 
@@ -184,8 +193,6 @@ app.post("/api/addBudgetId", jwtMW, (req, res) => {
 
 app.post("/api/getBudgetId", jwtMW, (req, res) => {
   const { userId, month, year } = req.body;
-  console.log("Inside budget ID");
-  console.log({ userId: userId, month: month, year: year });
   mongoClient.connect(url, (err, client) => {
     if (err) throw err;
 

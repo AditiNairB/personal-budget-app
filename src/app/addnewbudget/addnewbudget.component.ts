@@ -35,7 +35,6 @@ export class AddnewbudgetComponent implements OnInit {
     this.yearElement = document.querySelector('#year');
     let year = this.yearElement.value;
     let userId = sessionStorage.getItem('id').replace('"', '').replace('"', '');
-
     this.budgets().clear();
     this.authService
       .getBudgetIdFromDB({ userId: userId, month: month, year: year })
