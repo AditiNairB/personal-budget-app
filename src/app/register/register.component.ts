@@ -24,7 +24,7 @@ export class RegisterComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService
-    ) { }
+  ) { }
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
@@ -32,40 +32,40 @@ export class RegisterComponent implements OnInit {
       lastName: ['', Validators.required],
       username: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]]
-  });
+    });
   }
   get f() { return this.form.controls; }
 
-    onSubmit() {
-        this.submitted = true;
+  onSubmit() {
+    this.submitted = true;
 
-        // // reset alerts on submit
-        // this.alertService.clear();
+    // // reset alerts on submit
+    // this.alertService.clear();
 
-        // // stop here if form is invalid
-        if (this.form.invalid) {
-            return;
-        }
-
-        this.loading = true;
-        this.authService.registerUser({'username' : this.f.username.value, 'password':this.f.password.value})
-        .pipe(first())
-        .subscribe(
-            data => {
-              console.log(data);
-              if(data!=null){
-                this.router.navigate(['/dashboard']);
-                this.token = data.token;
-                this.id = data.id;
-                console.log(this.token);
-                this.refreshToken = data.refreshToken;
-                this.authService.storeUserData(this.id, this.token, this.f.username.value, this.refreshToken)
-              }
-            },
-            error => {
-              this.loading = false;
-              return;
-            });
+    // // stop here if form is invalid
+    if (this.form.invalid) {
+      return;
     }
+
+    this.loading = true;
+    this.authService.registerUser({ 'username': this.f.username.value, 'password': this.f.password.value })
+      .pipe(first())
+      .subscribe(
+        data => {
+          console.log(data);
+          if (data != null) {
+            this.router.navigate(['/dashboard']);
+            this.token = data.token;
+            this.id = data.id;
+            console.log("ID:" + data.id);
+            this.refreshToken = data.refreshToken;
+            this.authService.storeUserData(this.id, this.token, this.f.username.value, this.refreshToken)
+          }
+        },
+        error => {
+          this.loading = false;
+          return;
+        });
+  }
 
 }

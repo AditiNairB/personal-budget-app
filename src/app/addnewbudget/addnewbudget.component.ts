@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { first } from 'rxjs/operators';
-import { element } from 'protractor';
 
 @Component({
   selector: 'app-addnewbudget',
@@ -75,7 +74,7 @@ export class AddnewbudgetComponent implements OnInit {
                 (data) => {
                   console.log('added budget id' + data.budgetId);
                 },
-                (error) => {}
+                (error) => { }
               );
           }
         },
@@ -136,7 +135,7 @@ export class AddnewbudgetComponent implements OnInit {
               (data) => {
                 console.log('added budgets' + data.budgetId);
               },
-              (error) => {}
+              (error) => { }
             );
         },
         (error) => {

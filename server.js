@@ -53,7 +53,7 @@ app.post("/api/signup", (req, res) => {
           res.json({
             success: true,
             err: null,
-            id: result._id,
+            id: result.insertedId,
             username,
             token,
             refreshToken,
@@ -95,7 +95,7 @@ app.post("/api/login", (req, res) => {
           res.json({
             success: true,
             err: null,
-            id: result._id,
+            id: result,
             username,
             token,
             refreshToken,
@@ -161,7 +161,7 @@ app.post("/api/addBudgetId", jwtMW, (req, res) => {
         { userId: userId, month: month, year: year },
         function (err, result) {
           if (err) {
-            res.status(400).json({
+            res.json({
               success: false,
               token: null,
               err: "Invalid input",
