@@ -73,6 +73,7 @@ export class AddnewbudgetComponent implements OnInit {
               .subscribe(
                 (data) => {
                   console.log('added budget id' + data.budgetId);
+                  this.budgetId = data.budgetId;
                 },
                 (error) => { }
               );
@@ -119,7 +120,7 @@ export class AddnewbudgetComponent implements OnInit {
     for (element in this.budgetJson) {
       this.budgetJson[element].budgetId = this.budgetId;
     }
-
+    console.log(this.budgetId);
     this.authService
       .deleteBudgetsFromDB(this.budgetId)
       .pipe(first())

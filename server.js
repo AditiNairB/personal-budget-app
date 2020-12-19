@@ -161,7 +161,7 @@ app.post("/api/addBudgetId", jwtMW, (req, res) => {
         { userId: userId, month: month, year: year },
         function (err, result) {
           if (err) {
-            res.json({
+            res.status(400).json({
               success: false,
               token: null,
               err: "Invalid input",
@@ -208,7 +208,7 @@ app.post("/api/getBudgetId", jwtMW, (req, res) => {
               budgetId: result._id,
             });
           } else {
-            res.status(400).json({
+            res.json({
               success: false,
               err: "No budget Entry",
               budgetId: null,
